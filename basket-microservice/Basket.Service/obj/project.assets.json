@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\Source\\basket-microservice\\Basket.Service\\Basket.Service.csproj",
+      "projectUniqueName": "C:\\Projects\\Source\\microservices-in-dotnet\\basket-microservice\\Basket.Service\\Basket.Service.csproj",
       "projectName": "Basket.Service",
-      "projectPath": "C:\\Projects\\Source\\basket-microservice\\Basket.Service\\Basket.Service.csproj",
+      "projectPath": "C:\\Projects\\Source\\microservices-in-dotnet\\basket-microservice\\Basket.Service\\Basket.Service.csproj",
       "packagesPath": "C:\\nugets\\MyPackagesFolder",
-      "outputPath": "C:\\Projects\\Source\\basket-microservice\\Basket.Service\\obj\\",
+      "outputPath": "C:\\Projects\\Source\\microservices-in-dotnet\\basket-microservice\\Basket.Service\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\milanco.arsovski\\AppData\\Roaming\\NuGet\\NuGet.Config",

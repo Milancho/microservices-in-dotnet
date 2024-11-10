@@ -1,3 +1,5 @@
+namespace Basket.Service.Models;
+
 internal class CustomerBasket
 {
     private readonly HashSet<BasketProduct> _products = [];
@@ -7,8 +9,8 @@ internal class CustomerBasket
 
     public void AddBasketProduct(BasketProduct basketProduct)
     {
-        var existingProduct = _products.FirstOrDefault(i =>
-            i.ProductId.Equals(basketProduct.ProductId));
+        var existingProduct = _products.FirstOrDefault(i => i.ProductId.Equals(basketProduct.ProductId));
+
         if (existingProduct is null)
         {
             _products.Add(basketProduct);
@@ -21,7 +23,5 @@ internal class CustomerBasket
         }
     }
 
-    public void RemoveBasketProduct(string productId) =>
-            _products.RemoveWhere(r => r.ProductId.Equals(productId));
-
+    public void RemoveBasketProduct(string productId) => _products.RemoveWhere(r => r.ProductId.Equals(productId)); 
 }
