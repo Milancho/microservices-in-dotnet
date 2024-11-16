@@ -7,7 +7,11 @@ builder.Services.AddScoped<IBasketStore, InMemoryBasketStore>();
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
+app.MapGet("/test", () => "Test !");
+
+app.RegisterEndpoints();
 
 app.Run();
 
-app.RegisterEndpoints();
+
+
