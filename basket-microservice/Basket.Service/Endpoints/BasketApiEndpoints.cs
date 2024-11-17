@@ -27,5 +27,29 @@ public static class BasketApiEndpoints
 
        });
 
+        routeBuilder.MapPut("/{customerId}", ([FromServices] IBasketStore basketStore, string customerId,
+            AddBasketProductRequest addProductRequest) =>
+        {
+            var customerBasket = basketStore.GetBasketByCustomerId(customerId);
+
+            customerBasket.AddBasketProduct(new BasketProduct(addProductRequest.ProductId,
+                addProductRequest.ProductName,
+                addProductRequest.Quantity));
+
+            basketStore.UpdateCustomerBasket(customerBasket);
+            return TypedResults.NoContent();
+        });
+
+        routeBuilder.MapDelete("/{customerId}/{productId}",
+            ([FromServices] IBasketStore basketStore, string customerId, string productId) =>
+        {
+            var customerBasket = basketStore.GetBasketByCustomerId(customerId);
+
+            customerBasket.RemoveBasketProduct(productId);
+
+            basketStore.UpdateCustomerBasket(customerBasket);
+            return TypedResults.NoContent();
+        });
+
     }
 }
