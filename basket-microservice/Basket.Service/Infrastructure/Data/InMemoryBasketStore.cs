@@ -14,14 +14,16 @@ internal class InMemoryBasketStore : IBasketStore
        Baskets[customerBasket.CustomerId] = customerBasket;
 
     public void UpdateCustomerBasket(CustomerBasket customerBasket)
-{
-    if (Baskets.TryGetValue(customerBasket.CustomerId, out _))
     {
-        Baskets[customerBasket.CustomerId] = customerBasket;
+        if (Baskets.TryGetValue(customerBasket.CustomerId, out _))
+        {
+            Baskets[customerBasket.CustomerId] = customerBasket;
+        }
+        else
+        {
+            CreateCustomerBasket(customerBasket);
+        }
     }
-    else
-    {
-        CreateCustomerBasket(customerBasket);
-    }
-}
+
+    public void DeleteCustomerBasket(string customerId) => Baskets.Remove(customerId);
 }
