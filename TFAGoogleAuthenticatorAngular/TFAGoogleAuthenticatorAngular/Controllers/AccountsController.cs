@@ -126,9 +126,10 @@ namespace TwoFactorAuthenticationGoogleAuthenticatorAngular.Controllers
         public async Task<IActionResult> PostTfaSetup([FromBody] TfaSetupDto tfaModel)
         {
             var user = await _userManager.FindByNameAsync(tfaModel.Email);
+            var tokenProvider = _userManager.Options.Tokens.AuthenticatorTokenProvider;
 
             var isValidCode = await _userManager
-                .VerifyTwoFactorTokenAsync(user, _userManager.Options.Tokens.AuthenticatorTokenProvider, tfaModel.Code);
+                .VerifyTwoFactorTokenAsync(user, tokenProvider, tfaModel.Code);
 
             if (isValidCode)
             {
