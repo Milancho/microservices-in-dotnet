@@ -6,4 +6,7 @@ internal class InMemoryOrderStore : IOrderStore
 
     public void CreateOrder(Models.Order order) =>
         Orders[$"{order.CustomerId}-{order.OrderId}"] = order;
+
+    public Models.Order? GetCustomerOrderById(string customerId, string orderId) =>
+        Orders.TryGetValue($"{customerId}-{orderId}", out var order) ? order : null;
 }
