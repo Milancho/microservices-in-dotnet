@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RzxRp19jOsw=",
+  "dgSpecHash": "5/RMqn+dmmY=",
   "success": true,
-  "projectFilePath": "C:\\Projects\\Source\\microservices-in-dotnet\\basket-microservice\\Basket.Service\\Basket.Service.csproj",
+  "projectFilePath": "c:\\Projects\\Source\\microservices-in-dotnet\\basket-microservice\\Basket.Service\\Basket.Service.csproj",
   "expectedPackageFiles": [
     "C:\\nugets\\MyPackagesFolder\\rabbitmq.client\\6.8.1\\rabbitmq.client.6.8.1.nupkg.sha512",
     "C:\\nugets\\MyPackagesFolder\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
