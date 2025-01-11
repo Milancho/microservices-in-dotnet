@@ -5,7 +5,7 @@ using Order.Service.Infrastructure.RabbitMq;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IOrderStore, InMemoryOrderStore>();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddRabbitMqEventBus();
+builder.Services.AddRabbitMqEventBus(builder.Configuration);
 
 var app = builder.Build();
 
