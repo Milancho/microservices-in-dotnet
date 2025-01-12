@@ -27,9 +27,15 @@ public class RabbitMqHostedService : IHostedService
 
             var channel = rabbitMQConnection.Connection.CreateModel();
 
-            channel.QueueDeclare(
+            channel.ExchangeDeclare(
+                exchange: ExchangeName,
+                type: "fanout",
+                durable: false,
+                autoDelete: false,
+                null);
 
-                queue: nameof(OrderCreatedEvent),
+            channel.QueueDeclare(
+                queue: QueueName,
                 durable: false,
                 exclusive: false,
                 autoDelete: false,
@@ -40,9 +46,14 @@ public class RabbitMqHostedService : IHostedService
             consumer.Received += OnMessageReceived;
 
             channel.BasicConsume(
-                queue: nameof(OrderCreatedEvent),
+                queue: QueueName,
                 autoAck: true,
                 consumer: consumer);
+
+            channel.QueueBind(
+                queue: QueueName,
+                exchange: ExchangeName,
+                routingKey: string.Empty);
         },
         TaskCreationOptions.LongRunning);
 
