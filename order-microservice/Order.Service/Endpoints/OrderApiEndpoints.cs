@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Order.Service.ApiModels;
 using Order.Service.Infrastructure.Data;
 using Order.Service.IntegrationEvents.Events;
-using Order.Service.Infrastructure.EventBus.Abstractions;
+using ECommerce.Shared.Infrastructure.EventBus.Abstractions;
 
 namespace Order.Service.Endpoints;
 
