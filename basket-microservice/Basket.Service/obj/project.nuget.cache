@@ -1,9 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "RzxRp19jOsw=",
+  "dgSpecHash": "aJqyGg/U8e0=",
   "success": true,
   "projectFilePath": "C:\\Projects\\Source\\microservices-in-dotnet\\basket-microservice\\Basket.Service\\Basket.Service.csproj",
   "expectedPackageFiles": [
+    "C:\\nugets\\MyPackagesFolder\\ecommerce.shared\\1.0.0\\ecommerce.shared.1.0.0.nupkg.sha512",
+    "C:\\nugets\\MyPackagesFolder\\microsoft.extensions.configuration.abstractions\\9.0.0\\microsoft.extensions.configuration.abstractions.9.0.0.nupkg.sha512",
+    "C:\\nugets\\MyPackagesFolder\\microsoft.extensions.configuration.binder\\9.0.0\\microsoft.extensions.configuration.binder.9.0.0.nupkg.sha512",
+    "C:\\nugets\\MyPackagesFolder\\microsoft.extensions.dependencyinjection.abstractions\\9.0.0\\microsoft.extensions.dependencyinjection.abstractions.9.0.0.nupkg.sha512",
+    "C:\\nugets\\MyPackagesFolder\\microsoft.extensions.primitives\\9.0.0\\microsoft.extensions.primitives.9.0.0.nupkg.sha512",
     "C:\\nugets\\MyPackagesFolder\\rabbitmq.client\\6.8.1\\rabbitmq.client.6.8.1.nupkg.sha512",
     "C:\\nugets\\MyPackagesFolder\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
     "C:\\nugets\\MyPackagesFolder\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512"

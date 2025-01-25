@@ -1,4 +1,5 @@
-using Basket.Service.Infrastructure.EventBus;
+
+using ECommerce.Shared.Infrastructure.EventBus;
 
 namespace Basket.Service.IntegrationEvents;
 
