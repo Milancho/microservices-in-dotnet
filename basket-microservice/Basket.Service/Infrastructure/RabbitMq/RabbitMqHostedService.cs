@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using Basket.Service.IntegrationEvents;
 using Basket.Service.Infrastructure.Data;
+using ECommerce.Shared.Infrastructure.RabbitMq;
 
 namespace Basket.Service.Infrastructure.RabbitMq;
 
