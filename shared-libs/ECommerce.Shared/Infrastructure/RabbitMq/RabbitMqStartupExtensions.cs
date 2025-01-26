@@ -22,12 +22,15 @@ public static class RabbitMqStartupExtensions
         return services;
     }
 
-    // public static IServiceCollection AddRabbitMqSubscriberService(this IServiceCollection services, IConfigurationManager configuration)
-    // {
-    //     services.Configure<EventBusOptions>(configuration.GetSection(EventBusOptions.EventBusSectionName));
+    public static IServiceCollection AddRabbitMqSubscriberService(
+    this IServiceCollection services,
+    IConfigurationManager configuration)
+    {
+        services.Configure<EventBusOptions>(
+            configuration.GetSection(EventBusOptions.EventBusSectionName));
 
-    //     services.AddHostedService<RabbitMqHostedService>();
+        services.AddHostedService<RabbitMqHostedService>();
 
-    //     return services;
-    // }
+        return services;
+    }
 }
