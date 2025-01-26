@@ -28,7 +28,6 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Projects\\Source\\microservices-in-dotnet\\local-nuget-packages": {},
-          "\\\\BUILDSRV\\dotnet.dev.build.8\\DOTNET.Nuget.v8.Pamf": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -55,7 +54,7 @@
           "dependencies": {
             "ECommerce.Shared": {
               "target": "Package",
-              "version": "[1.0.0, )"
+              "version": "[1.1.0, )"
             },
             "RabbitMQ.Client": {
               "target": "Package",
