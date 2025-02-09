@@ -11,7 +11,7 @@ using Product.Service.Infrastructure.Data.EntityFramework;
 namespace Product.Service.Infrastructure.Data.EntityFramework.Migrations
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20250208202855_Initial")]
+    [Migration("20250209075830_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
