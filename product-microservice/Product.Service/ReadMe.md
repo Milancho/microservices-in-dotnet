@@ -36,6 +36,8 @@ To get started with the Entity Framework setup for the Product.Service, follow t
 To add a new migration, use the following command:
 ```sh
 dotnet ef migrations add Initial -o Infrastructure\Data\EntityFramework\Migrations
+
+dotnet ef migrations add SeedProductType -o Infrastructure\Data\EntityFramework\Migrations
 ```
 
 To update the database with the latest migrations, use:

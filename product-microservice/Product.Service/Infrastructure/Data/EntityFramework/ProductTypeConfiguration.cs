@@ -13,6 +13,18 @@ internal class ProductTypeConfiguration : IEntityTypeConfiguration<ProductType>
         builder.Property(p => p.Type)
             .IsRequired()
             .HasMaxLength(100);
-            
+
+        builder.HasData(
+       new ProductType
+       {
+           Id = 1,
+           Type = "Shoes"
+       },
+       new ProductType
+       {
+           Id = 2,
+           Type = "Shorts"
+       });
+
     }
 }
