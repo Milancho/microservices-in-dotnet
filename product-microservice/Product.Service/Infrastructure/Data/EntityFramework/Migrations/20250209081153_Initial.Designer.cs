@@ -11,7 +11,7 @@ using Product.Service.Infrastructure.Data.EntityFramework;
 namespace Product.Service.Infrastructure.Data.EntityFramework.Migrations
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20250209075830_Initial")]
+    [Migration("20250209081153_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -69,18 +69,6 @@ namespace Product.Service.Infrastructure.Data.EntityFramework.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Type = "Shoes"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Type = "Shorts"
-                        });
                 });
 
             modelBuilder.Entity("Product.Service.Models.Product", b =>

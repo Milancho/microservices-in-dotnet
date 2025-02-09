@@ -43,6 +43,16 @@ To update the database with the latest migrations, use:
 dotnet ef database update
 ```
 
+### Drop Database
+```sql
+    USE master;
+    GO
+    ALTER DATABASE Product SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    GO
+
+    DROP DATABASE Product;
+```
+
 ### Usage
 
 To run the application, use:

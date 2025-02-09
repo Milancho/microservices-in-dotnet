@@ -2,8 +2,6 @@
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace Product.Service.Infrastructure.Data.EntityFramework.Migrations
 {
     /// <inheritdoc />
@@ -45,15 +43,6 @@ namespace Product.Service.Infrastructure.Data.EntityFramework.Migrations
                         principalTable: "ProductTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.InsertData(
-                table: "ProductTypes",
-                columns: new[] { "Id", "Type" },
-                values: new object[,]
-                {
-                    { 1, "Shoes" },
-                    { 2, "Shorts" }
                 });
 
             migrationBuilder.CreateIndex(

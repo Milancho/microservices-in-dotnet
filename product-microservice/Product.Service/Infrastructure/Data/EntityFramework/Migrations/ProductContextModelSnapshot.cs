@@ -66,18 +66,6 @@ namespace Product.Service.Infrastructure.Data.EntityFramework.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Type = "Shoes"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Type = "Shorts"
-                        });
                 });
 
             modelBuilder.Entity("Product.Service.Models.Product", b =>
