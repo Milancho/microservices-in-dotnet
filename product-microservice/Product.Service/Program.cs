@@ -1,3 +1,4 @@
+using Product.Service.Endpoints;
 using Product.Service.Infrastructure.Data.EntityFramework;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,3 +12,5 @@ if (app.Environment.IsDevelopment())
 
 app.MapGet("/", () => "Hello World!");
 app.Run();
+
+app.RegisterEndpoints();
