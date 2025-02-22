@@ -1,4 +1,23 @@
 services:
+  product:
+    container_name: product 
+    build:
+      context: .
+      dockerfile: ./product-microservice/Product.Service/Dockerfile
+    ports:
+      - "8002:8080"
+    environment:
+      - "ASPNETCORE_ENVIRONMENT=Development"
+      - "RabbitMq__HostName=host.docker.internal"
+      - "ConnectionStrings__Default=Server=host.docker.internal,1433;Database=Product;User Id=sa;Password=micR0S3rvice$;TrustServerCertificate=True"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
   sql:
     container_name: sql 
     image: mcr.microsoft.com/mssql/server:2022-latest

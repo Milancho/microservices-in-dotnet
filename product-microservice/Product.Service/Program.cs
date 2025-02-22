@@ -7,7 +7,7 @@ builder.Services.AddSqlServerDatastore(builder.Configuration);
 
 builder.Services.AddRabbitMqEventBus(builder.Configuration)
     .AddRabbitMqEventPublisher();
-    
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -16,6 +16,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapGet("/", () => "Hello World!");
-app.Run();
-
 app.RegisterEndpoints();
+
+// app.UseHttpsRedirection();
+
+app.Run();
