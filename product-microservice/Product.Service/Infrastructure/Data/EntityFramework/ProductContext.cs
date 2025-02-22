@@ -18,9 +18,11 @@ internal class ProductContext : DbContext, IProductStore
         modelBuilder.ApplyConfiguration(new ProductTypeConfiguration());
     }
 
-       public async Task<Models.Product?> GetById(int id)
+    public async Task<Models.Product?> GetById(int id)
     {
-        return await FindAsync<Models.Product>(id);
+        return await Products
+         .Include(p => p.ProductType)
+         .FirstOrDefaultAsync(p => p.Id == id);
     }
     public async Task CreateProduct(Models.Product product)
     {
