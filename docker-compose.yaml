@@ -10,6 +10,16 @@ services:
       - "ASPNETCORE_ENVIRONMENT=Development"
       - "RabbitMq__HostName=host.docker.internal"
       - "ConnectionStrings__Default=Server=host.docker.internal,1433;Database=Product;User Id=sa;Password=micR0S3rvice$;TrustServerCertificate=True"
+  basket:
+    container_name: basket
+    build: 
+      context: .
+      dockerfile: ./basket-microservice/Basket.Service/Dockerfile
+    ports:
+      - "8000:8080"
+    environment:
+      - "RabbitMq__HostName=host.docker.internal"
+      - "Redis__Configuration=host.docker.internal:6379"
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -26,3 +36,9 @@ services:
     environment:
       - "ACCEPT_EULA=Y"
       - "MSSQL_SA_PASSWORD=micR0S3rvice$"
+
+  redis:
+    container_name: redis
+    image: redis:6.2-alpine
+    ports:
+      - "6379:6379"

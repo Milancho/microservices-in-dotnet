@@ -1,5 +1,6 @@
 using Basket.Service.Endpoints;
 using Basket.Service.Infrastructure.Data;
+using Basket.Service.Infrastructure.Data.Redis;
 using Basket.Service.IntegrationEvents;
 using Basket.Service.IntegrationEvents.EventHandlers;
 using ECommerce.Shared.Infrastructure.EventBus;
@@ -14,6 +15,8 @@ builder.Services.AddRabbitMqEventBus(builder.Configuration)
     .AddEventHandler<ProductPriceUpdatedEvent, ProductPriceUpdatedEventHandler>();
     
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddRedisCache(builder.Configuration);
 
 var app = builder.Build();
 

@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "fCQRcR37mK4=",
+  "dgSpecHash": "EmtOYTGiE4Q=",
   "success": true,
   "projectFilePath": "C:\\Projects\\Source\\microservices-in-dotnet\\basket-microservice\\Basket.Service\\Basket.Service.csproj",
   "expectedPackageFiles": [
     "C:\\nugets\\MyPackagesFolder\\ecommerce.shared\\1.1.0\\ecommerce.shared.1.1.0.nupkg.sha512",
+    "C:\\nugets\\MyPackagesFolder\\microsoft.extensions.caching.abstractions\\9.0.0\\microsoft.extensions.caching.abstractions.9.0.0.nupkg.sha512",
+    "C:\\nugets\\MyPackagesFolder\\microsoft.extensions.caching.stackexchangeredis\\9.0.0\\microsoft.extensions.caching.stackexchangeredis.9.0.0.nupkg.sha512",
     "C:\\nugets\\MyPackagesFolder\\microsoft.extensions.configuration.abstractions\\9.0.0\\microsoft.extensions.configuration.abstractions.9.0.0.nupkg.sha512",
     "C:\\nugets\\MyPackagesFolder\\microsoft.extensions.configuration.binder\\9.0.0\\microsoft.extensions.configuration.binder.9.0.0.nupkg.sha512",
     "C:\\nugets\\MyPackagesFolder\\microsoft.extensions.dependencyinjection.abstractions\\9.0.0\\microsoft.extensions.dependencyinjection.abstractions.9.0.0.nupkg.sha512",
@@ -15,7 +17,10 @@
     "C:\\nugets\\MyPackagesFolder\\microsoft.extensions.options\\9.0.0\\microsoft.extensions.options.9.0.0.nupkg.sha512",
     "C:\\nugets\\MyPackagesFolder\\microsoft.extensions.options.configurationextensions\\9.0.0\\microsoft.extensions.options.configurationextensions.9.0.0.nupkg.sha512",
     "C:\\nugets\\MyPackagesFolder\\microsoft.extensions.primitives\\9.0.0\\microsoft.extensions.primitives.9.0.0.nupkg.sha512",
+    "C:\\nugets\\MyPackagesFolder\\pipelines.sockets.unofficial\\2.2.8\\pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
     "C:\\nugets\\MyPackagesFolder\\rabbitmq.client\\6.8.1\\rabbitmq.client.6.8.1.nupkg.sha512",
+    "C:\\nugets\\MyPackagesFolder\\stackexchange.redis\\2.7.27\\stackexchange.redis.2.7.27.nupkg.sha512",
+    "C:\\nugets\\MyPackagesFolder\\system.io.pipelines\\5.0.1\\system.io.pipelines.5.0.1.nupkg.sha512",
     "C:\\nugets\\MyPackagesFolder\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
     "C:\\nugets\\MyPackagesFolder\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512"
   ],
