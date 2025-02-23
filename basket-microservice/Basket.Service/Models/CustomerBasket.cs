@@ -6,7 +6,13 @@ internal class CustomerBasket
 
     public IEnumerable<BasketProduct> Products => _products;
     public required string CustomerId { get; init; }
-
+    public decimal BasketTotal 
+    { 
+        get
+        {
+            return _products.Select(p => p.Quantity * p.ProductPrice).Sum();
+        } 
+    }
     public void AddBasketProduct(BasketProduct basketProduct)
     {
         var existingProduct = _products.FirstOrDefault(i => i.ProductId.Equals(basketProduct.ProductId));
@@ -22,6 +28,6 @@ internal class CustomerBasket
             _products.Add(basketProduct);
         }
     }
-
     public void RemoveBasketProduct(string productId) => _products.RemoveWhere(r => r.ProductId.Equals(productId)); 
+
 }

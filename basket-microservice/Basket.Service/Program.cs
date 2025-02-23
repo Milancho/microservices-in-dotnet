@@ -8,7 +8,7 @@ using ECommerce.Shared.Infrastructure.RabbitMq;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<IBasketStore, InMemoryBasketStore>();
+builder.Services.AddScoped<IBasketStore, RedisBasketStore>();
 builder.Services.AddRabbitMqEventBus(builder.Configuration)
     .AddRabbitMqSubscriberService(builder.Configuration)
     .AddEventHandler<OrderCreatedEvent, OrderCreatedEventHandler>()
