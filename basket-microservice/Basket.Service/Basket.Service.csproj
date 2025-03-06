@@ -12,4 +12,8 @@
     <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Basket.Tests" />
+  </ItemGroup>
+
 </Project>
