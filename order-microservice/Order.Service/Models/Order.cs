@@ -27,7 +27,7 @@ internal class Order
         }
         else
         {
-            var orderProduct = new OrderProduct { ProductId = productId };
+            var orderProduct = new OrderProduct { ProductId = productId, OrderId = OrderId };
             orderProduct.AddQuantity(quantity);
 
             _orderProducts.Add(orderProduct);

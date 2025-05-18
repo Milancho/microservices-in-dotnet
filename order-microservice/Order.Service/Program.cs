@@ -1,9 +1,11 @@
 using Order.Service.Endpoints;
 using Order.Service.Infrastructure.Data;
 using ECommerce.Shared.Infrastructure.RabbitMq;
+using Order.Service.Infrastructure.Data.EntityFramework;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddScoped<IOrderStore, InMemoryOrderStore>();
+builder.Services.AddSqlServerDatastore(builder.Configuration);
+
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddRabbitMqEventBus(builder.Configuration)
