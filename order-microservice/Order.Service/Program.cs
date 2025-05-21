@@ -4,12 +4,13 @@ using ECommerce.Shared.Infrastructure.RabbitMq;
 using Order.Service.Infrastructure.Data.EntityFramework;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddSqlServerDatastore(builder.Configuration);
 
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddRabbitMqEventBus(builder.Configuration)
     .AddRabbitMqEventPublisher();
+
+builder.Services.AddSqlServerDatastore(builder.Configuration);
 
 var app = builder.Build();
 

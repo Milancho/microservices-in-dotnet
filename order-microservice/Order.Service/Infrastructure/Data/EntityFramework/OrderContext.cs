@@ -19,19 +19,19 @@ internal class OrderContext : DbContext, IOrderStore
         modelBuilder.ApplyConfiguration(new OrderProductConfiguration());
     }
 
-    public async Task CreateOrder(Models.Order order)
-    {
-        Orders.Add(order);
+    // public async Task CreateOrder(Models.Order order)
+    // {
+    //     Orders.Add(order);
 
-        await SaveChangesAsync();
-    }
+    //     await SaveChangesAsync();
+    // }
 
-    public async Task<Models.Order?> GetCustomerOrderById(string customerId, string orderId)
-    {
-        return await Orders
-            .Include(o => o.OrderProducts)
-            .FirstOrDefaultAsync(o => o.CustomerId == customerId && o.OrderId.ToString() == orderId);
-    }
+    // public async Task<Models.Order?> GetCustomerOrderById(string customerId, string orderId)
+    // {
+    //     return await Orders
+    //         .Include(o => o.OrderProducts)
+    //         .FirstOrDefaultAsync(o => o.CustomerId == customerId && o.OrderId.ToString() == orderId);
+    // }
 
     void IOrderStore.CreateOrder(Models.Order order)
     {
