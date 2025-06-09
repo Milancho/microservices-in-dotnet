@@ -20,7 +20,18 @@ services:
     environment:
       - "RabbitMq__HostName=host.docker.internal"
       - "Redis__Configuration=host.docker.internal:6379"
-
+  order:
+    container_name: order 
+    build:
+      context: .
+      dockerfile: ./order-microservice/Order.Service/Dockerfile
+    ports:
+      - "8001:8080"
+    environment:
+      - "ASPNETCORE_ENVIRONMENT=Development"
+      - "RabbitMq__HostName=host.docker.internal"
+      - "ConnectionStrings__Default=Server=host.docker.internal,1433;Database=Order;User Id=sa;Password=micR0S3rvice$;TrustServerCertificate=True"
+ 
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
