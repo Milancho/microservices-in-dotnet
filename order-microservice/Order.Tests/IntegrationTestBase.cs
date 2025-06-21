@@ -15,70 +15,49 @@ namespace Order.Tests;
 
 public class IntegrationTestBase : IClassFixture<OrderWebApplicationFactory>
 {
+
+    private const string QueueName = "order-integration-tests";
+    private const string ExchangeName = "ecommerce-exchange";
+    private IModel? _model;
+
     internal readonly OrderContext OrderContext;
     internal readonly HttpClient HttpClient;
-
+    internal readonly IRabbitMqConnection RabbitMqConnection;
+    internal List<Event> ReceivedEvents = [];
     public IntegrationTestBase(OrderWebApplicationFactory webApplicationFactory)
     {
         var scope = webApplicationFactory.Services.CreateScope();
 
         OrderContext = scope.ServiceProvider.GetRequiredService<OrderContext>();
         HttpClient = webApplicationFactory.CreateClient();
+        RabbitMqConnection = scope.ServiceProvider.GetRequiredService<IRabbitMqConnection>();
     }
 
-    [Fact]
-    public async Task GetOrder_WhenNoOrderExists_ThenReturnsNotFound()
+    public void Subscribe<TEvent>() where TEvent : Event
     {
-        // Act
-        var response = await HttpClient.GetAsync($"/1/{Guid.NewGuid()}");
-
-        // Assert
-        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        _model = RabbitMqConnection.Connection.CreateModel();
+        _model.ExchangeDeclare(ExchangeName, "fanout", durable: false, autoDelete: false, null);
+        _model.QueueDeclare(QueueName, durable: false, exclusive: false, autoDelete: false, null);
+        EventingBasicConsumer eventingBasicConsumer = new(_model);
+        eventingBasicConsumer.Received += (sender, eventArgs) =>
+        {
+            var body = Encoding.UTF8.GetString(eventArgs.Body.Span);
+            var @event = JsonSerializer.Deserialize<TEvent>(body);
+            if (@event is not null)
+            {
+                ReceivedEvents.Add(@event);
+            }
+        };
+        _model.BasicConsume(QueueName, true, eventingBasicConsumer);
+        _model.QueueBind(QueueName, ExchangeName, typeof(TEvent).Name);
     }
-
-    [Fact]
-    public async Task GetOrder_WhenOrderExists_ThenReturnsOrder()
+    public void Dispose()
     {
-        // Arrange
-        var order = new Service.Models.Order { CustomerId = "1" };
-        await OrderContext.CreateOrder(order);
-
-        // Act
-        var response = await HttpClient.GetAsync($"/{order.CustomerId}/{order.OrderId}");
-
-        // Assert
-        response.EnsureSuccessStatusCode();
-
-        var getOrderResponse = await response.Content.ReadFromJsonAsync<GetOrderResponse>();
-
-        Assert.NotNull(getOrderResponse);
-        Assert.Equal(order.OrderId, getOrderResponse.OrderId);
+        if (_model is not null)
+        {
+            _model.QueueDelete(QueueName);
+            _model.ExchangeDelete(ExchangeName);
+        }
+        RabbitMqConnection.Connection.Dispose();
     }
-
-    [Fact]
-    public async Task CreateOrder_WhenCalled_ThenCreatesOrder()
-    {
-        // Arrange
-        var createOrderRequest = new CreateOrderRequest([]);
-
-        // Act
-        var response = await HttpClient.PostAsJsonAsync("/1", createOrderRequest);
-
-        // Assert
-        response.EnsureSuccessStatusCode();
-
-        var locationHeader = response.Headers.FirstOrDefault(h =>
-            string.Equals(h.Key, "Location")).Value.FirstOrDefault();
-
-        Assert.NotNull(locationHeader);
-        var split = locationHeader.Split('/');
-        var customerId = split[0];
-        var orderId = split[1];
-
-        var order = OrderContext.Orders.FirstOrDefault(o =>
-            o.OrderId == Guid.Parse(orderId) && o.CustomerId == customerId);
-
-        Assert.NotNull(order);
-    }
-
 }
