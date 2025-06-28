@@ -9,7 +9,7 @@ builder.Services.AddSqlServerDatastore(builder.Configuration);
 builder.Services.AddRabbitMqEventBus(builder.Configuration)
     .AddRabbitMqEventPublisher();
 
-builder.Services.AddOpenTelemetryTracing("Product");
+builder.Services.AddOpenTelemetryTracing("Product", (traceBuilder) => traceBuilder.WithSqlInstrumentation());
 
 var app = builder.Build();
 
