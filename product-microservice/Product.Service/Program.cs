@@ -1,4 +1,5 @@
 using ECommerce.Shared.Infrastructure.RabbitMq;
+using ECommerce.Shared.Observability;
 using Product.Service.Endpoints;
 using Product.Service.Infrastructure.Data.EntityFramework;
 
@@ -7,6 +8,8 @@ builder.Services.AddSqlServerDatastore(builder.Configuration);
 
 builder.Services.AddRabbitMqEventBus(builder.Configuration)
     .AddRabbitMqEventPublisher();
+
+builder.Services.AddOpenTelemetryTracing("Product");
 
 var app = builder.Build();
 
