@@ -14,6 +14,11 @@ public static class ProductApiEndpoints
         {
             var product = await productStore.GetById(productId);
 
+            if (product is null || product.ProductType is null)
+                {
+                    return TypedResults.NotFound("Product not found");
+                }
+            
             return product is null
                 ? TypedResults.NotFound("Product not found")
                 : TypedResults.Ok(new GetProductResponse(product.Id, product.Name, product.Price, product.ProductType.Type, product.Description));
