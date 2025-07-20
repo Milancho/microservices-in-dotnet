@@ -60,3 +60,11 @@ services:
     ports:
       - "4317:4317"
       - "16686:16686"
+  
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:latest
+    ports: 
+      - "9090:9090"
+    volumes:
+      - ./observability/prometheus-config.yaml:/etc/prometheus/prometheus.yml
