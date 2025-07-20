@@ -3,6 +3,7 @@ using Order.Service.ApiModels;
 using Order.Service.Infrastructure.Data;
 using Order.Service.IntegrationEvents.Events;
 using ECommerce.Shared.Infrastructure.EventBus.Abstractions;
+using ECommerce.Shared.Observability.Metrics;
 
 namespace Order.Service.Endpoints;
 
@@ -11,7 +12,7 @@ public static class OrderApiEndpoint
     public static void RegisterEndpoints(this IEndpointRouteBuilder routeBuilder)
     {
         routeBuilder.MapPost("/{customerId}", async ([FromServices] IEventBus eventBus,
-            [FromServices] IOrderStore orderStore,
+            [FromServices] IOrderStore orderStore, [FromServices] MetricFactory metricFactory,
             string customerId, CreateOrderRequest request) =>
         {
             var order = new Models.Order
@@ -25,6 +26,9 @@ public static class OrderApiEndpoint
             }
 
             await orderStore.CreateOrder(order);
+
+             var orderCounter = metricFactory.Counter("total-orders", "Orders");
+            orderCounter.Add(1);
 
             await eventBus.PublishAsync(new OrderCreatedEvent(customerId));
 

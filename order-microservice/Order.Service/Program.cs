@@ -13,8 +13,9 @@ builder.Services.AddRabbitMqEventBus(builder.Configuration)
 
 builder.Services.AddSqlServerDatastore(builder.Configuration);
 
-builder.Services.AddOpenTelemetryTracing("Order", builder.Configuration, (traceBuilder) => traceBuilder.WithSqlInstrumentation())
-  .AddOpenTelemetryMetrics();
+const string serviceName = "Order";
+builder.Services.AddOpenTelemetryTracing(serviceName, builder.Configuration, (traceBuilder) => traceBuilder.WithSqlInstrumentation())
+  .AddOpenTelemetryMetrics(serviceName, builder.Services);
 
 var app = builder.Build();
 
