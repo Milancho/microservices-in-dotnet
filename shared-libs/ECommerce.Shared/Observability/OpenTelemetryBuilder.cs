@@ -38,17 +38,20 @@ public static class OpenTelemetryStartupExtensions
         builder.AddSqlClientInstrumentation();
 
     public static OpenTelemetryBuilder AddOpenTelemetryMetrics(this OpenTelemetryBuilder openTelemetryBuilder, 
-        string serviceName, IServiceCollection services)
-    {
-        services.AddSingleton(new MetricFactory(serviceName));
+    string serviceName, IServiceCollection services,
+    Action<MeterProviderBuilder>? customMetrics = null)
+{
+    services.AddSingleton(new MetricFactory(serviceName));
 
-        return openTelemetryBuilder
-            .WithMetrics(builder =>
-            {
-                builder
-                    .AddConsoleExporter()
-                    .AddAspNetCoreInstrumentation()
-                    .AddMeter(serviceName);
-            });
-    }
+    return openTelemetryBuilder
+        .WithMetrics(builder =>
+        {
+            builder
+                .AddConsoleExporter()
+                .AddAspNetCoreInstrumentation()
+                .AddMeter(serviceName);
+
+            customMetrics?.Invoke(builder);
+        });
+}
 }
