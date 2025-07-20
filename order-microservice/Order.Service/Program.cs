@@ -28,6 +28,7 @@ if (app.Environment.IsDevelopment())
 {
     app.MigrateDatabase();
 }
+app.UsePrometheusExporter();
 
 app.MapGet("/", () => "Hello World!");
 
