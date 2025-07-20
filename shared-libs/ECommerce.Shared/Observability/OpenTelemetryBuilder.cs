@@ -1,4 +1,5 @@
 using ECommerce.Shared.Infrastructure.RabbitMq;
+using ECommerce.Shared.Observability.Metrics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry;
@@ -36,15 +37,18 @@ public static class OpenTelemetryStartupExtensions
     public static TracerProviderBuilder WithSqlInstrumentation(this TracerProviderBuilder builder) =>
         builder.AddSqlClientInstrumentation();
 
-    public static OpenTelemetryBuilder AddOpenTelemetryMetrics(this OpenTelemetryBuilder openTelemetryBuilder)
+    public static OpenTelemetryBuilder AddOpenTelemetryMetrics(this OpenTelemetryBuilder openTelemetryBuilder, 
+        string serviceName, IServiceCollection services)
     {
+        services.AddSingleton(new MetricFactory(serviceName));
+
         return openTelemetryBuilder
             .WithMetrics(builder =>
             {
                 builder
                     .AddConsoleExporter()
-                    .AddAspNetCoreInstrumentation();
+                    .AddAspNetCoreInstrumentation()
+                    .AddMeter(serviceName);
             });
     }
-
 }
