@@ -23,14 +23,12 @@ public static class RabbitMqStartupExtensions
         return services;
     }
 
-    public static IServiceCollection AddRabbitMqSubscriberService(
-    this IServiceCollection services,
-    IConfigurationManager configuration)
+    public static IServiceCollection AddRabbitMqSubscriberService(this IServiceCollection services, IConfigurationManager configuration)
     {
-        services.Configure<EventBusOptions>(
-            configuration.GetSection(EventBusOptions.EventBusSectionName));
+        services.Configure<EventBusOptions>(configuration.GetSection(EventBusOptions.EventBusSectionName));
 
         services.AddHostedService<RabbitMqHostedService>();
+        services.AddSingleton<RabbitMqTelemetry>();
 
         return services;
     }
