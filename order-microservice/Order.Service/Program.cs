@@ -3,6 +3,7 @@ using Order.Service.Infrastructure.Data;
 using ECommerce.Shared.Infrastructure.RabbitMq;
 using Order.Service.Infrastructure.Data.EntityFramework;
 using ECommerce.Shared.Observability;
+using OpenTelemetry.Metrics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,11 @@ builder.Services.AddSqlServerDatastore(builder.Configuration);
 
 const string serviceName = "Order";
 builder.Services.AddOpenTelemetryTracing(serviceName, builder.Configuration, (traceBuilder) => traceBuilder.WithSqlInstrumentation())
-  .AddOpenTelemetryMetrics(serviceName, builder.Services);
+    .AddOpenTelemetryMetrics(serviceName, builder.Services, (metricBuilder) => 
+        metricBuilder.AddView("products-per-order", new ExplicitBucketHistogramConfiguration
+    {
+        Boundaries = [1, 2, 5, 10]
+    }));
 
 var app = builder.Build();
 
