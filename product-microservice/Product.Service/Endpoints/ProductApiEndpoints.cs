@@ -1,5 +1,8 @@
+using System.Transactions;
 using ECommerce.Shared.Infrastructure.EventBus.Abstractions;
+using ECommerce.Shared.Infrastructure.Outbox;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Product.Service.ApiModels;
 using Product.Service.Infrastructure.Data;
 using Product.Service.IntegrationEvents;
@@ -39,7 +42,8 @@ public static class ProductApiEndpoints
             return TypedResults.Created(product.Id.ToString());
         });
 
-        routeBuilder.MapPut("/{productId}", async Task<IResult> ([FromServices] IProductStore productStore, [FromServices] IEventBus eventBus,
+        routeBuilder.MapPut("/{productId}", async Task<IResult> ([FromServices] IProductStore productStore,
+            [FromServices] IOutboxStore outboxStore,
             int productId, UpdateProductRequest request) =>
         {
             var product = await productStore.GetById(productId);
@@ -56,12 +60,19 @@ public static class ProductApiEndpoints
             product.ProductTypeId = request.ProductTypeId;
             product.Description = request.Description;
 
-            await productStore.UpdateProduct(product);
-
-            if (!decimal.Equals(existingPrice, request.Price))
+            await outboxStore.CreateExecutionStrategy().ExecuteAsync(async () =>
             {
-                await eventBus.PublishAsync(new ProductPriceUpdatedEvent(productId, request.Price));
-            }
+                using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
+
+                await productStore.UpdateProduct(product);
+
+                if (!decimal.Equals(existingPrice, request.Price))
+                {
+                    await outboxStore.AddOutboxEvent(new ProductPriceUpdatedEvent(productId, request.Price));
+                }
+
+                scope.Complete();
+            });
 
             return TypedResults.NoContent();
         });

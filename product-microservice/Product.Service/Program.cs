@@ -1,3 +1,4 @@
+using ECommerce.Shared.Infrastructure.Outbox;
 using ECommerce.Shared.Infrastructure.RabbitMq;
 using ECommerce.Shared.Observability;
 using Product.Service.Endpoints;
@@ -12,11 +13,14 @@ builder.Services.AddRabbitMqEventBus(builder.Configuration)
 builder.Services.AddOpenTelemetryTracing("Product", builder.Configuration, (traceBuilder) => 
     traceBuilder.WithSqlInstrumentation());
 
+builder.Services.AddOutbox(builder.Configuration);
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
     app.MigrateDatabase();
+    app.ApplyOutboxMigrations();
 }
 
 app.MapGet("/", () => "Hello World!");
