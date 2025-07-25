@@ -23,7 +23,7 @@ internal class OrderContext : DbContext, IOrderStore
     {
         Orders.Add(order);
 
-        await SaveChangesAsync();
+        await SaveChangesAsync(acceptAllChangesOnSuccess: false);
     }
 
     public async Task<Models.Order?> GetCustomerOrderById(string customerId, string orderId)
