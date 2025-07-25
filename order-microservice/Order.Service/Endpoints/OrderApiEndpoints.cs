@@ -1,9 +1,12 @@
+using System.Transactions;
+using ECommerce.Shared.Infrastructure.EventBus.Abstractions;
+using ECommerce.Shared.Infrastructure.Outbox;
+using ECommerce.Shared.Observability.Metrics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Order.Service.ApiModels;
 using Order.Service.Infrastructure.Data;
 using Order.Service.IntegrationEvents.Events;
-using ECommerce.Shared.Infrastructure.EventBus.Abstractions;
-using ECommerce.Shared.Observability.Metrics;
 
 namespace Order.Service.Endpoints;
 
@@ -11,8 +14,11 @@ public static class OrderApiEndpoint
 {
     public static void RegisterEndpoints(this IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapPost("/{customerId}", async ([FromServices] IEventBus eventBus,
-            [FromServices] IOrderStore orderStore, [FromServices] MetricFactory metricFactory,
+        routeBuilder.MapPost("/{customerId}", async (
+            [FromServices] IEventBus eventBus,
+            [FromServices] IOrderStore orderStore,
+            [FromServices] IOutboxStore outboxStore,
+            [FromServices] MetricFactory metricFactory,
             string customerId, CreateOrderRequest request) =>
         {
             var order = new Models.Order
@@ -25,15 +31,22 @@ public static class OrderApiEndpoint
                 order.AddOrderProduct(product.ProductId, product.Quantity);
             }
 
-            await orderStore.CreateOrder(order);
+            await outboxStore.CreateExecutionStrategy().ExecuteAsync(async () =>
+            {
+                using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
 
-             var orderCounter = metricFactory.Counter("total-orders", "Orders");
-            orderCounter.Add(1);
+                await orderStore.CreateOrder(order);
 
-            var productsPerOrderHistogram = metricFactory.Histogram("products-per-order", "Products");
-            productsPerOrderHistogram.Record(order.OrderProducts.DistinctBy(p => p.ProductId).Count());
+                var orderCounter = metricFactory.Counter("total-orders", "Orders");
+                orderCounter.Add(1);
 
-            await eventBus.PublishAsync(new OrderCreatedEvent(customerId));
+                var productsPerOrderHistogram = metricFactory.Histogram("products-per-order", "Products");
+                productsPerOrderHistogram.Record(order.OrderProducts.DistinctBy(p => p.ProductId).Count());
+
+                await outboxStore.AddOutboxEvent(new OrderCreatedEvent(customerId));
+
+                scope.Complete();
+            });
 
             return TypedResults.Created($"{order.CustomerId}/{order.OrderId}");
         });
