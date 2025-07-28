@@ -2,7 +2,7 @@
 Microservices in .NET
 
 ## Scaffolding a new project
-``` bat
+``` cmd
 mkdir auth-microservice && cd auth-microservice
 dotnet new sln -n Auth.Service
 dotnet new web -n Auth.Service
