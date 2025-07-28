@@ -4,7 +4,6 @@ Microservices in .NET
 ## Scaffolding a new project
 ``` bat
 mkdir auth-microservice && cd auth-microservice
-
 ```
 
 ## Docker
@@ -16,6 +15,7 @@ docker compose up basket --build
 docker compose up order --build
 docker compose up jaeger
 ```
+
 ## Nuget
 ``` powershell   
 dotnet pack
