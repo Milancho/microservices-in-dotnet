@@ -44,7 +44,14 @@ services:
     environment:
       - "ASPNETCORE_ENVIRONMENT=Development"      
       - "ConnectionStrings__Default=Server=host.docker.internal,1433;Database=Auth;User Id=sa;Password=micR0S3rvice$;TrustServerCertificate=True" 
- 
+  gateway:
+    container_name: gateway
+    build:
+      context: .
+      dockerfile: ./api-gateway/ApiGateway/Dockerfile
+    ports:
+      - "8004:8080"
+        
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
