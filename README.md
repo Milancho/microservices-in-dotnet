@@ -16,6 +16,7 @@ docker compose up sql rabbitmq redis
 docker compose up product --build
 docker compose up basket --build
 docker compose up order --build
+docker compose up auth --build
 docker compose up jaeger
 ```
 
