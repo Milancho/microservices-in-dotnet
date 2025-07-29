@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Auth.Service.Infrastructure.Data.EntityFramework.Migrations
 {
     [DbContext(typeof(AuthContext))]
-    [Migration("20250729110148_Initial")]
+    [Migration("20250729120023_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -46,7 +46,7 @@ namespace Auth.Service.Infrastructure.Data.EntityFramework.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d613ef27-0f16-49ba-b247-f2972da37941"),
+                            Id = new Guid("e197a36f-4e70-4be8-b7b6-68f79c9e50c9"),
                             Password = "oKNrqkO7iC#G",
                             Username = "microservices@code-maze.com"
                         });
