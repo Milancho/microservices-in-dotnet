@@ -1,0 +1,17 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/login",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamScheme": "http",
+      "DownstreamPathTemplate": "/login",
+      "DangerousAcceptAnyServerCertificateValidator": true,
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8003
+        }
+      ]
+    }
+  ]
+}
