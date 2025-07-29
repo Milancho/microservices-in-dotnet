@@ -9,7 +9,7 @@ services:
     environment:
       - "ASPNETCORE_ENVIRONMENT=Development"
       - "RabbitMq__HostName=host.docker.internal"
-      - "ConnectionStrings__Default=Server=host.docker.internal,1433;Database=Product;User Id=sa;Password=micR0S3rvice$;TrustServerCertificate=True"
+      - "ConnectionStrings__Default=Server=host.docker.internal,1433;Database=Product;User Id=sa;Password=micR0S3rvice$;TrustServerCertificate=True"      
       
   basket:
     container_name: basket
@@ -20,7 +20,7 @@ services:
       - "8000:8080"
     environment:
       - "RabbitMq__HostName=host.docker.internal"
-      - "Redis__Configuration=host.docker.internal:6379"
+      - "Redis__Configuration=host.docker.internal:6379"      
       
   order:
     container_name: order 
@@ -32,9 +32,9 @@ services:
     environment:
       - "ASPNETCORE_ENVIRONMENT=Development"
       - "RabbitMq__HostName=host.docker.internal"
-      - "ConnectionStrings__Default=Server=host.docker.internal,1433;Database=Order;User Id=sa;Password=micR0S3rvice$;TrustServerCertificate=True"
- 
-   auth:
+      - "ConnectionStrings__Default=Server=host.docker.internal,1433;Database=Order;User Id=sa;Password=micR0S3rvice$;TrustServerCertificate=True" 
+      
+  auth:
     container_name: auth
     build: 
       context: .
