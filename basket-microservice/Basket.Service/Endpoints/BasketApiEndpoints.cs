@@ -1,29 +1,33 @@
 using Basket.Service.ApiModels;
 using Basket.Service.Infrastructure.Data;
 using Basket.Service.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Basket.Service.Endpoints;
 
 public static class BasketApiEndpoints
 {
-
     public static void RegisterEndpoints(this IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapGet("/{customerId}",  GetBasket);        
+        routeBuilder.MapGet("/{customerId}", GetBasket);
 
-        routeBuilder.MapPost("/{customerId}", CreateBasket).RequireAuthorization();
+        routeBuilder.MapPost("/{customerId}", CreateBasket);
 
-        routeBuilder.MapPut("/{customerId}", AddBasketProduct).RequireAuthorization();
+        routeBuilder.MapPut("/{customerId}", AddBasketProduct);
 
         routeBuilder.MapDelete("/{customerId}/{productId}", DeleteBasketProduct);
 
-        routeBuilder.MapDelete("/{customerId}", DeleteBasket);
+        routeBuilder.MapDelete("/{customerId}", DeleteBasket);       
+
+        routeBuilder.MapPost("/", ([FromServices] IBasketStore basketStore, CreateBasketRequest createBasketRequest) =>
+        {
+            return TypedResults.Created(createBasketRequest.ProductId.ToString());
+        }).RequireAuthorization();
     }
 
     internal static async Task<CustomerBasket> GetBasket(IBasketStore basketStore, string customerId)
-       => await basketStore.GetBasketByCustomerId(customerId);
+        => await basketStore.GetBasketByCustomerId(customerId);
 
     internal static async Task<IResult> CreateBasket(IBasketStore basketStore, IDistributedCache cache, string customerId, CreateBasketRequest createBasketRequest)
     {
@@ -69,11 +73,4 @@ public static class BasketApiEndpoints
 
         return TypedResults.NoContent();
     }
-
-
-
-
-
-
-
 }
