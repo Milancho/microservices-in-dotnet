@@ -13,9 +13,9 @@ public static class BasketApiEndpoints
     {
         routeBuilder.MapGet("/{customerId}",  GetBasket);        
 
-        routeBuilder.MapPost("/{customerId}", CreateBasket);
+        routeBuilder.MapPost("/{customerId}", CreateBasket).RequireAuthorization();
 
-        routeBuilder.MapPut("/{customerId}", AddBasketProduct);
+        routeBuilder.MapPut("/{customerId}", AddBasketProduct).RequireAuthorization();
 
         routeBuilder.MapDelete("/{customerId}/{productId}", DeleteBasketProduct);
 

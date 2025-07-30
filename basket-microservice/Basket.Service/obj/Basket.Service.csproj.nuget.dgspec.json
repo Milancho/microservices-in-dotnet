@@ -55,7 +55,7 @@
           "dependencies": {
             "ECommerce.Shared": {
               "target": "Package",
-              "version": "[1.6.0, )"
+              "version": "[1.13.0, )"
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",

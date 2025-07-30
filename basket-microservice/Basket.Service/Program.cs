@@ -3,6 +3,7 @@ using Basket.Service.Infrastructure.Data;
 using Basket.Service.Infrastructure.Data.Redis;
 using Basket.Service.IntegrationEvents;
 using Basket.Service.IntegrationEvents.EventHandlers;
+using ECommerce.Shared.Authentication;
 using ECommerce.Shared.Infrastructure.EventBus;
 using ECommerce.Shared.Infrastructure.RabbitMq;
 using ECommerce.Shared.Observability;
@@ -22,16 +23,18 @@ builder.Services.AddRedisCache(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
-app.MapGet("/", () => "Hello World!");
-app.MapGet("/test", () => "Test !");
+var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
+app.MapGet("/", () => "Hello World!");
 app.RegisterEndpoints();
 
 app.UseHttpsRedirection();
+
+app.UseJwtAuthentication();
 
 app.Run();
