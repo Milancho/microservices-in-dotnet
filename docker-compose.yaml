@@ -1,7 +1,7 @@
 services:
   product:
-    container_name: product 
-    build:
+    container_name: product  
+    build: 
       context: .
       dockerfile: ./product-microservice/Product.Service/Dockerfile
     ports:
@@ -9,8 +9,8 @@ services:
     environment:
       - "ASPNETCORE_ENVIRONMENT=Development"
       - "RabbitMq__HostName=host.docker.internal"
-      - "ConnectionStrings__Default=Server=host.docker.internal,1433;Database=Product;User Id=sa;Password=micR0S3rvice$;TrustServerCertificate=True"      
-      
+      - "ConnectionStrings__Default=Server=host.docker.internal,1433;Database=Product;User Id=sa;Password=micR0S3rvice$;TrustServerCertificate=True"
+ 
   basket:
     container_name: basket
     build: 
@@ -20,11 +20,11 @@ services:
       - "8000:8080"
     environment:
       - "RabbitMq__HostName=host.docker.internal"
-      - "Redis__Configuration=host.docker.internal:6379"      
-      
+      - "Redis__Configuration=host.docker.internal:6379"
+  
   order:
-    container_name: order 
-    build:
+    container_name: order
+    build: 
       context: .
       dockerfile: ./order-microservice/Order.Service/Dockerfile
     ports:
@@ -33,7 +33,7 @@ services:
       - "ASPNETCORE_ENVIRONMENT=Development"
       - "RabbitMq__HostName=host.docker.internal"
       - "ConnectionStrings__Default=Server=host.docker.internal,1433;Database=Order;User Id=sa;Password=micR0S3rvice$;TrustServerCertificate=True" 
-      
+  
   auth:
     container_name: auth
     build: 
@@ -42,16 +42,16 @@ services:
     ports:
       - "8003:8080"
     environment:
-      - "ASPNETCORE_ENVIRONMENT=Development"      
-      - "ConnectionStrings__Default=Server=host.docker.internal,1433;Database=Auth;User Id=sa;Password=micR0S3rvice$;TrustServerCertificate=True" 
+      - "ASPNETCORE_ENVIRONMENT=Development"
+
   gateway:
     container_name: gateway
-    build:
+    build: 
       context: .
       dockerfile: ./api-gateway/ApiGateway/Dockerfile
     ports:
       - "8004:8080"
-        
+
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
@@ -60,14 +60,14 @@ services:
       - "15672:15672"
 
   sql:
-    container_name: sql 
+    container_name: sql  
     image: mcr.microsoft.com/mssql/server:2022-latest
     ports:
       - "1433:1433"
     environment:
       - "ACCEPT_EULA=Y"
       - "MSSQL_SA_PASSWORD=micR0S3rvice$"
-
+  
   redis:
     container_name: redis
     image: redis:6.2-alpine
