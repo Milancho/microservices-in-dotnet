@@ -5,6 +5,7 @@ using Order.Service.Infrastructure.Data.EntityFramework;
 using ECommerce.Shared.Observability;
 using OpenTelemetry.Metrics;
 using ECommerce.Shared.Infrastructure.Outbox;
+using ECommerce.Shared.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,8 @@ builder.Services.AddOpenTelemetryTracing(serviceName, builder.Configuration, (tr
 
 builder.Services.AddOutbox(builder.Configuration);
 
+builder.Services.AddJwtAuthentication(builder.Configuration);
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -35,8 +38,11 @@ if (app.Environment.IsDevelopment())
 app.UsePrometheusExporter();
 
 app.MapGet("/", () => "Hello World!");
-
 app.RegisterEndpoints();
+
+app.UseHttpsRedirection();
+
+app.UseJwtAuthentication();
 
 app.Run();
 

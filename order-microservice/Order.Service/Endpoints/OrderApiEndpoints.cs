@@ -49,7 +49,7 @@ public static class OrderApiEndpoint
             });
 
             return TypedResults.Created($"{order.CustomerId}/{order.OrderId}");
-        });
+        }).RequireAuthorization();;
 
         routeBuilder.MapGet("/{customerId}/{orderId}", async Task<IResult> ([FromServices] IOrderStore orderStore, string customerId, string orderId) =>
         {
