@@ -8,8 +8,8 @@
       "DangerousAcceptAnyServerCertificateValidator": true,
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
-          "Port": 8003
+          "Host": "auth-clusterip-service",
+          "Port": 8080
         }
       ]
     },
@@ -21,8 +21,8 @@
       "DangerousAcceptAnyServerCertificateValidator": true,
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
-          "Port": 8002
+          "Host": "product-clusterip-service",
+          "Port": 8080
         }
       ]
     },
@@ -34,8 +34,8 @@
       "DangerousAcceptAnyServerCertificateValidator": true,
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
-          "Port": 8002
+          "Host": "product-clusterip-service",
+          "Port": 8080
         }
       ],
       "AuthenticationOptions": {
