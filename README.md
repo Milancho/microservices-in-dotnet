@@ -53,4 +53,9 @@ docker push milanchoars/authservice:latest
 kubectl apply -f auth-microservice.yaml
 kubectl logs -f deployment/authservice
 
+:: apigateway
+docker build -t milanchoars/apigateway:latest -f api-gateway\ApiGateway\Dockerfile .
+docker push USERNAME/apigateway:latest
+kubectl apply -f api-gateway.yaml
+kubectl logs -f deployment/apigateway
 ```
