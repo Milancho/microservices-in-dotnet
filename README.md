@@ -37,4 +37,5 @@ dotnet ef database update --context AuthContext
 ## Kubernetes
 ``` cmd
 kubectl apply -f sql.yaml
+kubectl get pods
 ```
