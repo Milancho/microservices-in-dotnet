@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: productservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: productservice
+  template:
+    metadata:
+      labels:
+        app: productservice
+    spec:
+      containers:
+      - name: productservice
+        image: milanchoars/productservice:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Development
+        - name: RabbitMq__HostName
+          value: rabbitmq-clusterip-service
+        - name: ConnectionStrings__Default
+          value: Server=mssql-clusterip-service,1433;Database=Product;User Id=sa;Password=micR0S3rvice$;TrustServerCertificate=True
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-clusterip-service
+spec:
+  type: ClusterIP
+  selector:
+    app: productservice
+  ports:
+  - port: 8080
+    targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: productservice-loadbalancer
+spec:
+  type: LoadBalancer
+  selector:
+    app: productservice
+  ports:
+  - protocol: TCP
+    port: 8002
+    targetPort: 8080
