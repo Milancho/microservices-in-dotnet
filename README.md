@@ -39,4 +39,7 @@ dotnet ef database update --context AuthContext
 kubectl apply -f sql.yaml
 kubectl get pods
 kubectl get services
+
+docker build -t milanchoars/productservice:latest -f product-microservice\Product.Service\Dockerfile .
+
 ```
