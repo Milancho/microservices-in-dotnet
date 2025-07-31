@@ -58,10 +58,12 @@ docker build -t milanchoars/apigateway:latest -f api-gateway\ApiGateway\Dockerfi
 docker push milanchoars/apigateway:latest
 kubectl apply -f api-gateway.yaml
 kubectl logs -f deployment/apigateway
-```
+
 :: basket
 docker build -t milanchoars/basketservice:latest -f basket-microservice\Basket.Service\Dockerfile .
 docker login -u milanchoars
 docker push milanchoars/basketservice:latest
 kubectl apply -f basket-microservice.yaml
 kubectl logs -f deployment/basketservice
+
+```
