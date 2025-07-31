@@ -37,8 +37,6 @@ dotnet ef database update --context AuthContext
 ## Kubernetes
 ``` cmd
 kubectl apply -f sql.yaml
-kubectl apply -f product-microservice.yaml
-
 kubectl get pods
 kubectl get services
 
@@ -46,4 +44,6 @@ docker build -t milanchoars/productservice:latest -f product-microservice\Produc
 docker login -u milanchoars
 docker push milanchoars/productservice:latest
 
+kubectl apply -f product-microservice.yaml
+kubectl logs -f deployment/productservice
 ```
