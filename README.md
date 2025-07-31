@@ -41,5 +41,7 @@ kubectl get pods
 kubectl get services
 
 docker build -t milanchoars/productservice:latest -f product-microservice\Product.Service\Dockerfile .
+docker login -u milanchoars
+docker push milanchoars/productservice:latest
 
 ```
