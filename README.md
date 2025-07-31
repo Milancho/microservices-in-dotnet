@@ -46,4 +46,9 @@ docker login -u milanchoars
 docker push milanchoars/productservice:latest
 kubectl apply -f product-microservice.yaml
 kubectl logs -f deployment/productservice
+
+:: auth
+docker build -t milanchoars/authservice:latest -f auth-microservice\Auth.Service\Dockerfile .
+docker push milanchoars/authservice:latest
+
 ```
