@@ -65,4 +65,10 @@ docker push milanchoars/basketservice:latest
 kubectl apply -f basket-microservice.yaml
 kubectl logs -f deployment/basketservice
 
+:: order
+docker build -t milanchoars/orderservice:latest -f order-microservice\Order.Service\Dockerfile .
+docker push milanchoars/orderservice:latest
+kubectl apply -f order-microservice.yaml
+kubectl logs -f deployment/orderservice
+
 ```
