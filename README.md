@@ -36,9 +36,14 @@ dotnet ef database update --context AuthContext
 
 ## Kubernetes
 ``` bat
-kubectl apply -f sql.yaml
+
 kubectl get pods
 kubectl get services
+
+:: sql, rabbitmq, redis
+kubectl apply -f sql.yaml
+kubectl apply -f rabbitmq.yaml
+kubectl apply -f redis.yaml
 
 :: product
 docker build -t milanchoars/productservice:latest -f product-microservice\Product.Service\Dockerfile .
